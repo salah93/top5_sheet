@@ -46,7 +46,6 @@ def read_sheet(spreadsheetID, rangeName, credentials):
     """
         prints top 5 slogans
     """
-    # from IPython import embed; embed()
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
