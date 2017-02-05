@@ -59,7 +59,7 @@ def read_sheet(spreadsheetID, rangeName, credentials):
         values[i] = row + [0] * (5 - len(row))
         try:
             values[i][4] = int(values[i][4])
-        except:
+        except ValueError:
             values[4] = 0
     values = sorted(values, key=itemgetter(4), reverse=True)
     if not values:
