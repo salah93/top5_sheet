@@ -62,11 +62,9 @@ def read_sheet(spreadsheetID, rangeName, credentials):
             values[4] = 0
     values = sorted(values, key=itemgetter(4), reverse=True)
     if not values:
-        print('No data found.')
-    else:
-        for row in values[:5]:
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s: %s' % (row[0], row[4]))
+        return []
+    # return columns A and E, which correspond to indices 0 and 4.
+    return [(row[0], row[4]) for row in values[:5]]
 
 
 if __name__ == '__main__':
@@ -79,4 +77,6 @@ if __name__ == '__main__':
 
     spreadsheetId = '1xjcjBzvX4fI_baXA66VRytRFnusP60DYp0PsR_gyIOs'
     rangeName = 'Sheet1!A2:E'
-    read_sheet(spreadsheetId, rangeName, credentials)
+    values = read_sheet(spreadsheetId, rangeName, credentials)
+    for row in values:
+        print('%s: %s' % (row[0], row[1]))
