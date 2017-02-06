@@ -54,17 +54,19 @@ def read_sheet(spreadsheetID, rangeName, credentials):
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
+    columns = 5
+    weight_index = 4
     for i, row in enumerate(values):
-        values[i] = row + [0] * (5 - len(row))
+        values[i] = row + [0] * (columns - len(row))
         try:
-            values[i][4] = int(values[i][4])
+            values[i][weight_index] = int(values[i][4])
         except ValueError:
-            values[4] = 0
-    values = sorted(values, key=itemgetter(4), reverse=True)
+            values[weight_index] = 0
+    values = sorted(values, key=itemgetter(weight_index), reverse=True)
     if not values:
         return []
     # return columns A and E, which correspond to indices 0 and 4.
-    return [(row[0], row[4]) for row in values[:5]]
+    return [(row[0], row[weight_index]) for row in values[:5]]
 
 
 if __name__ == '__main__':
